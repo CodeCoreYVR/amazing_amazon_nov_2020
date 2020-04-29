@@ -75,5 +75,5 @@ puts Cowsay.say("Generated #{products.count} products with #{NUM_OF_REVIEWS} rev
 puts Cowsay.say("Generated #{users.count}  users!", :turtle)
 # puts Cowsay.say("Generated #{likes.count}  likes!", :bunny)
 puts Cowsay.say("Generated #{tags.count}  tags!", :ghostbusters)
-# puts Cowsay.say("Generated #{favourites.count}  favourites!", :tux)
+
 

@@ -45,6 +45,11 @@ class ProductsController < ApplicationController
     @review = Review.new
   end
 
+  def destroy
+    @product.destroy
+    redirect_to products_path
+  end
+
   def edit
   end
 
@@ -77,13 +82,20 @@ class ProductsController < ApplicationController
     params.require(:product).permit(:title, :description, :price, :sale_price, :tag_names)
   end
 
-   def load_product!
-    # params_tag= params[:tag]
+  def authorize_user!
+    unless can? :crud, @product
+      flash[:danger] = "Access Denied"
+      redirect_to root_path
+    end
+  end
+
+  def load_product!
     if params[:id].present?
       @product = Product.find(params[:id])
     else
       @product = Product.new
     end
-   end
-
+  end
 end
+
+
