@@ -20,7 +20,7 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 # Gem for authorization
-gem 'cancancan', '~> 3.2.0 '
+gem 'cancancan'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -28,8 +28,10 @@ gem 'cancancan', '~> 3.2.0 '
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 # Library of icons for likes/favourites -> https://github.com/bokmann/font-awesome-rails
-gem "font-awesome-rails", '~> 4.7'
-
+gem 'font-awesome-sass', '~> 5.12.0'
+gem 'jquery-rails'
+gem 'bootstrap', '~> 4.5'
+gem 'selectize-rails'
 
 gem 'active_model_serializers'
 

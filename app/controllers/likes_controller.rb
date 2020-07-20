@@ -3,16 +3,16 @@ class LikesController < ApplicationController
 
     def create
         # When we create a like, we will provide the review id for the like to belong to
-        review = Review.find params[:review_id]
-        like = Like.new user: current_user, review: review
-        if !can?(:like, review)
+        @review = Review.find params[:review_id]
+        like = Like.new user: current_user, review: @review
+        if !can?(:like, @review)
             flash[:alert] = "You can't like your own review"
         elsif like.save
             flash[:success] = "Review Liked!"
-            redirect_to like.review.product
         else
             flash[:warning] = like.errors.full_messages.join(', ')
         end
+        redirect_to @review.product
     end
 
     def destroy
@@ -28,5 +28,4 @@ class LikesController < ApplicationController
             redirect_to like.review.product
         end
     end
-
 end

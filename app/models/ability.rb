@@ -8,14 +8,14 @@ class Ability
     user ||= User.new
     alias_action :create, :read, :update, :destroy, to: :crud
 
-    #
+    
       # user ||= User.new # guest user (not logged in)
       # if user.admin?
       #   can :manage, :all
       # else
       #   can :read, :all
       # end
-    #
+    
     # The first argument to `can` is the action you are giving the user
     # permission to do.
     # If you pass :manage it will apply to every action. Other common actions
@@ -35,8 +35,8 @@ class Ability
       product.user == user
     end
 
-    can :crud, Review do |review|
-      review.user == user
+    can(:crud, Review) do |review|
+      review.user == user || review.product.user == user
     end
 
     can :crud, NewsArticle do |news_article|
@@ -48,7 +48,7 @@ class Ability
     end
 
     can :destroy, Like do |like|
-      like.user == user
+      like.user == user || like.review.user == user
     end
 
   end

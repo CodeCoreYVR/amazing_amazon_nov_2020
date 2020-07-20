@@ -17,7 +17,7 @@ class ReviewsController < ApplicationController
   end
   
   def destroy
-    @review.delete
+    @review.destroy
     redirect_to product_path(@review.product)
   end
 
@@ -37,4 +37,5 @@ class ReviewsController < ApplicationController
       @review = Review.new
     end
   end
+
 end
