@@ -72,4 +72,8 @@ class Product < ApplicationRecord
   def log_delete_details
     puts "Product #{self.id} is about to be deleted"
   end
+
+  def set_default_hit_count
+    self.hit_count ||= DEFAULT_HIT_COUNT
+  end
 end
