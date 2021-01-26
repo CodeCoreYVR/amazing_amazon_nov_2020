@@ -39,7 +39,7 @@ end
 users = User.all
 
 NUM_OF_TAGS.times do 
-  Tag.create( name: Faker::Science.scientist )
+  Tag.create( name: Faker::Vehicle.make )
 end
 
 tags = Tag.all
