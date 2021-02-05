@@ -11,7 +11,12 @@ Rails.application.routes.draw do
   post "/calculate_split", to: "bill_splitter#create"
 
   # Session Routes
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: [:new, :create]
+  get 'logout', to: 'sessions#destroy' 
+  # Added the above route because the sign out link defaults to a GET request with Bootstrap.  
+  # Alternatively, you could make the sign out link a button and add a method to it as follows:
+  # <%= button_to "Logout", session_path(current_user.id), :method=>:delete, :class=>:destroy,
+  #       data: {confirm: 'Are you sure you want to log out?'} %>
 
   # RESTful Product Routes
   #  get '/products/new', to: 'products#new', as: :new_product
