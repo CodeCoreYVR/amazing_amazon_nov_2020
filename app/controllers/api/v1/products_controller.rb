@@ -1,8 +1,8 @@
 class Api::V1::ProductsController < Api::ApplicationController
+    before_action :find_product, only:[:show, :destroy, :update]
     before_action :authenticate_user!, except: [:index, :show]
     before_action :authorize!, only: [:update, :destroy]
 
-    before_action :find_product,only:[:show, :destroy, :update]
     def index
         products=Product.order(created_at: :desc)
         render(json: products, each_serializer: ProductCollectionSerializer)    
@@ -24,19 +24,24 @@ class Api::V1::ProductsController < Api::ApplicationController
         
     end
     def update
-        if product.update product_params
-          render json: { id: product.id }
+        if @product.update product_params
+          render json: { success: "Product updated", id: @product.id }
         else
           render(
-            json: { errors: product.errors },
+            json: { errors: @product.errors },
             status: 422 # Unprocessable Entity
           )
         end
       end
     
       def destroy
-        product.destroy
-        render(json: { status: 200 }, status: 200)
+        # product.destroy
+        # render(json: { status: 200 }, status: 200)
+        if @product.destroy
+            head :ok
+        else
+            head :bad_request
+        end 
       end
 
     private
@@ -47,7 +52,7 @@ class Api::V1::ProductsController < Api::ApplicationController
         params.require(:product).permit(:title, :description, :price, tag_ids:[])
     end
     def authorize!
-        render(json: { status: 401 }, status: 401) unless can? :crud, product
+        render(json: { status: 401 }, status: 401) unless can? :crud, @product
     end
     
 end

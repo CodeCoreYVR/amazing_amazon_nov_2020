@@ -4,8 +4,9 @@ class Api::ApplicationController < ApplicationController
     private
 
   def authenticate_user!
-    unless current_user.present?
-      render(json: { status: 401 }, status: 401)
-    end
+    render(
+      json: { errors: "You are not logged in" }, 
+      status: 422
+    ) unless user_signed_in?
   end
 end
